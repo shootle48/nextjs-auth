@@ -6,8 +6,8 @@ import bcrypt from "bcryptjs";
 // GET: ดึงข้อมูลผู้ใช้ทั้งหมด
 export async function GET(req) {
   try {
-    await connectMongoDB();  // เชื่อมต่อกับ MongoDB
-    const users = await User.find();  // ดึงข้อมูลผู้ใช้ทั้งหมดจากฐานข้อมูล
+    await connectMongoDB(); // เชื่อมต่อกับ MongoDB
+    const users = await User.find(); // ดึงข้อมูลผู้ใช้ทั้งหมดจากฐานข้อมูล
 
     return NextResponse.json(users, { status: 200 });
   } catch (error) {
@@ -21,11 +21,11 @@ export async function GET(req) {
 // POST: สร้างผู้ใช้ใหม่
 export async function POST(req) {
   try {
-    const { name, email, password } = await req.json();  // รับข้อมูลจาก body
-    const hashedPassword = await bcrypt.hash(password, 10);  // เข้ารหัสรหัสผ่าน
+    const { name, email, password } = await req.json(); // รับข้อมูลจาก body
+    const hashedPassword = await bcrypt.hash(password, 10); // เข้ารหัสรหัสผ่าน
 
-    await connectMongoDB();  // เชื่อมต่อกับ MongoDB
-    await User.create({ name, email, password: hashedPassword });  // สร้างผู้ใช้ใหม่
+    await connectMongoDB(); // เชื่อมต่อกับ MongoDB
+    await User.create({ name, email, password: hashedPassword }); // สร้างผู้ใช้ใหม่
 
     return NextResponse.json({ message: "User registered." }, { status: 201 });
   } catch (error) {
@@ -39,21 +39,24 @@ export async function POST(req) {
 // PUT: อัปเดตข้อมูลผู้ใช้
 export async function PUT(req) {
   try {
-    const { id, name, email, password } = await req.json();  // รับข้อมูลจาก body
-    const hashedPassword = await bcrypt.hash(password, 10);  // เข้ารหัสรหัสผ่านใหม่
+    const { id, name, email, password } = await req.json(); // รับข้อมูลจาก body
+    const hashedPassword = await bcrypt.hash(password, 10); // เข้ารหัสรหัสผ่านใหม่
 
-    await connectMongoDB();  // เชื่อมต่อกับ MongoDB
+    await connectMongoDB(); // เชื่อมต่อกับ MongoDB
     const updatedUser = await User.findByIdAndUpdate(
-      id, 
-      { name, email, password: hashedPassword }, 
+      id,
+      { name, email, password: hashedPassword },
       { new: true }
-    );  // อัปเดตผู้ใช้ตาม ID
+    ); // อัปเดตผู้ใช้ตาม ID
 
     if (!updatedUser) {
       return NextResponse.json({ message: "User not found." }, { status: 404 });
     }
 
-    return NextResponse.json({ message: "User updated.", user: updatedUser }, { status: 200 });
+    return NextResponse.json(
+      { message: "User updated.", user: updatedUser },
+      { status: 200 }
+    );
   } catch (error) {
     return NextResponse.json(
       { message: "An error occurred while updating the user." },
@@ -65,9 +68,9 @@ export async function PUT(req) {
 // DELETE: ลบผู้ใช้ตาม ID
 export async function DELETE(req, { params }) {
   try {
-    const { id } = params;  // ดึง ID ของผู้ใช้จาก params
-    await connectMongoDB();  // เชื่อมต่อกับ MongoDB
-    const deletedUser = await User.findByIdAndDelete(id);  // ลบผู้ใช้โดยใช้ ID
+    const { id } = params; // ดึง ID ของผู้ใช้จาก URL path
+    await connectMongoDB(); // เชื่อมต่อกับ MongoDB
+    const deletedUser = await User.findByIdAndDelete(id); // ลบผู้ใช้โดยใช้ ID
 
     if (!deletedUser) {
       return NextResponse.json({ message: "User not found." }, { status: 404 });
