@@ -32,7 +32,7 @@ function RegisterPage() {
     }
 
     try {
-      const resCheckUser = await fetch("http://nextjs-auth-us5s.vercel.app/api/checkUser", {
+      const resCheckUser = await fetch("http://nextjs-auth-ashy.vercel.app/api/checkUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,7 @@ function RegisterPage() {
         return;
       }
 
-      const res = await fetch("http://nextjs-auth-us5s.vercel.app/api/register", {
+      const res = await fetch("http://nextjs-auth-ashy.vercel.app/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
