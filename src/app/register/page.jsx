@@ -20,20 +20,21 @@ function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password != confirmPassword) {
-      setError("password do not match!");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
       return;
     }
 
     if (!name || !email || !password || !confirmPassword) {
-      setError("Please complete all inputs!");
+      setError("Please complete all fields!");
       return;
     }
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Default to empty for production
 
     try {
-      const resCheckUser = await fetch(`${apiUrl}/api/register`, {
+      // Check if the user already exists
+      const resCheckUser = await fetch(`${apiUrl}/api/checkUser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,6 +49,7 @@ function RegisterPage() {
         return;
       }
 
+      // Proceed with registration
       const res = await fetch(`${apiUrl}/api/register`, {
         method: "POST",
         headers: {
@@ -61,15 +63,16 @@ function RegisterPage() {
       });
 
       if (res.ok) {
-        const form = e.target;
         setError("");
-        setSuccess("User registration successfully!");
-        form.reset();
+        setSuccess("User registered successfully!");
+        e.target.reset(); // Clear form after success
       } else {
-        console.log("Error registration failed.");
+        const { message } = await res.json();
+        setError(message || "Registration failed.");
       }
     } catch (error) {
-      console.log("Error during registration: ", error);
+      console.error("Error during registration: ", error);
+      setError("An error occurred during registration.");
     }
   };
 
@@ -93,28 +96,32 @@ function RegisterPage() {
           )}
 
           <input
+            value={name}
             onChange={(e) => setName(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="text"
             placeholder="Enter your name"
           />
           <input
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="email"
             placeholder="Enter your email"
           />
           <input
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="password"
             placeholder="Enter your password"
           />
           <input
+            value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="password"
-            placeholder="confirm your password"
+            placeholder="Confirm your password"
           />
           <button
             type="submit"
@@ -125,11 +132,11 @@ function RegisterPage() {
         </form>
         <hr className="my-3" />
         <p>
-          Already have an account? go to{" "}
+          Already have an account? Go to{" "}
           <Link className="text-blue-500 hover:underline" href="/login">
             Login
           </Link>{" "}
-          Page
+          page.
         </p>
       </div>
     </div>
