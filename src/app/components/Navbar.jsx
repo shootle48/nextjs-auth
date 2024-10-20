@@ -10,7 +10,7 @@ function Navbar({ session }) {
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
           <div>
-            <Link href="/">NextAuth</Link>
+            <Link href="/"><p className="text-xl font-semibold">THONTHIN</p></Link>
           </div>
           <ul className="flex">
             {!session ? (
