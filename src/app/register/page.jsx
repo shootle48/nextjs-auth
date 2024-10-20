@@ -30,12 +30,9 @@ function RegisterPage() {
       return;
     }
 
-    const apiUrl =
-      process.env.NEXT_PUBLIC_API_URL || "https://nextjs-auth-ashy.vercel.app"; // Ensure HTTPS is used
-
     try {
       // Check if the user already exists
-      const resCheckUser = await fetch(`${apiUrl}/api/checkUser`, {
+      const resCheckUser = await fetch("/api/checkUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +48,7 @@ function RegisterPage() {
       }
 
       // Proceed with registration
-      const res = await fetch(`${apiUrl}/api/register`, {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
