@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import Link from "next/link"
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 function RegisterPage() {
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,8 +14,8 @@ function RegisterPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const {data:session} = useSession()
-  if(session) redirect('/welcome')
+  const { data: session } = useSession();
+  if (session) redirect("/welcome");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,8 +30,10 @@ function RegisterPage() {
       return;
     }
 
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Default to empty for production
+
     try {
-      const resCheckUser = await fetch("/api/checkUser", {
+      const resCheckUser = await fetch(`${apiUrl}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +48,7 @@ function RegisterPage() {
         return;
       }
 
-      const res = await fetch("/api/register", {
+      const res = await fetch(`${apiUrl}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
