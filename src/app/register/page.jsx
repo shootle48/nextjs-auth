@@ -30,7 +30,8 @@ function RegisterPage() {
       return;
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Default to empty for production
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "https://nextjs-auth-ashy.vercel.app"; // Ensure HTTPS is used
 
     try {
       // Check if the user already exists
