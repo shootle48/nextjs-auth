@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import Link from "next/link";
+import Link from "next/link"
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 function RegisterPage() {
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,24 +15,23 @@ function RegisterPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const { data: session } = useSession();
-  if (session) redirect("/welcome");
+  const {data:session} = useSession()
+  if(session) redirect('/welcome')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match!");
+    if (password != confirmPassword) {
+      setError("password do not match!");
       return;
     }
 
     if (!name || !email || !password || !confirmPassword) {
-      setError("Please complete all fields!");
+      setError("Please complete all inputs!");
       return;
     }
 
     try {
-      // Check if the user already exists
       const resCheckUser = await fetch("/api/checkUser", {
         method: "POST",
         headers: {
@@ -47,7 +47,6 @@ function RegisterPage() {
         return;
       }
 
-      // Proceed with registration
       const res = await fetch("/api/register", {
         method: "POST",
         headers: {
@@ -61,16 +60,15 @@ function RegisterPage() {
       });
 
       if (res.ok) {
+        const form = e.target;
         setError("");
-        setSuccess("User registered successfully!");
-        e.target.reset(); // Clear form after success
+        setSuccess("User registration successfully!");
+        form.reset();
       } else {
-        const { message } = await res.json();
-        setError(message || "Registration failed.");
+        console.log("Error registration failed.");
       }
     } catch (error) {
-      console.error("Error during registration: ", error);
-      setError("An error occurred during registration.");
+      console.log("Error during registration: ", error);
     }
   };
 
@@ -94,32 +92,28 @@ function RegisterPage() {
           )}
 
           <input
-            value={name}
             onChange={(e) => setName(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="text"
             placeholder="Enter your name"
           />
           <input
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="email"
             placeholder="Enter your email"
           />
           <input
-            value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="password"
             placeholder="Enter your password"
           />
           <input
-            value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
             type="password"
-            placeholder="Confirm your password"
+            placeholder="confirm your password"
           />
           <button
             type="submit"
@@ -130,11 +124,11 @@ function RegisterPage() {
         </form>
         <hr className="my-3" />
         <p>
-          Already have an account? Go to{" "}
+          Already have an account? go to{" "}
           <Link className="text-blue-500 hover:underline" href="/login">
             Login
           </Link>{" "}
-          page.
+          Page
         </p>
       </div>
     </div>
