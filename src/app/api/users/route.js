@@ -70,7 +70,11 @@ export async function DELETE(req, { params }) {
   try {
     const { id } = params; // ดึง ID ของผู้ใช้จาก URL path
     await connectMongoDB(); // เชื่อมต่อกับ MongoDB
-    const deletedUser = await User.findByIdAndDelete(id); // ลบผู้ใช้โดยใช้ ID
+    const deletedUser = await User.findByIdAndDelete(
+      id,
+      { name, email, password: hashedPassword },
+      { new: true }
+    ); // ลบผู้ใช้โดยใช้ ID
 
     if (!deletedUser) {
       return NextResponse.json({ message: "User not found." }, { status: 404 });
