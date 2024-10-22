@@ -4,4 +4,9 @@
 
 body{
     background-color: #dceff3;
+    color: black;
+}
+
+input{
+    background-color: white;
 }

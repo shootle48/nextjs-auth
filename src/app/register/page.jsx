@@ -75,18 +75,44 @@ function RegisterPage() {
     <div className="bg-[#dceff3]">
       <Navbar />
       <div className="container mx-auto h-screen py-36 flex flex-col items-center">
-        <h1 className="text-4xl font-bold my-3"  >THONTHIN</h1>
+        <h1 className="text-4xl font-bold my-3">THONTHIN</h1>
         <h3 className="text-2xl">ลงทะเบียน</h3>
         <form onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-500 text-sm text-white py-1 px-3 rounded-md mt-2 w-full text-center">
-              {error}
+            <div role="alert" className="alert alert-error p-2 my-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{error}</span>
             </div>
           )}
 
           {success && (
-            <div className="bg-green-500 text-sm text-white py-1 px-3 rounded-md mt-2 w-full text-center">
-              {success}
+            <div role="alert" className="alert alert-success p-2 my-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{success}</span>
             </div>
           )}
 
