@@ -29,7 +29,7 @@ function Navbar({ session }) {
                     href="/welcome"
                     className="bg-gray-500 text-white border py-2 px-3 rounded-md text-lg my-2"
                   >
-                    Profile
+                    Blogs
                   </a>
                 </li>
                 <li className="mx-3">
