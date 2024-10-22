@@ -77,16 +77,15 @@ function RegisterPage() {
       <div className="container mx-auto h-screen py-36 flex flex-col items-center">
         <h1 className="text-4xl font-bold my-3"  >THONTHIN</h1>
         <h3 className="text-2xl">ลงทะเบียน</h3>
-        <hr className="my-3" />
         <form onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2 w-full text-center">
+            <div className="bg-red-500 text-sm text-white py-1 px-3 rounded-md mt-2 w-full text-center">
               {error}
             </div>
           )}
 
           {success && (
-            <div className="bg-green-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2 w-full text-center">
+            <div className="bg-green-500 text-sm text-white py-1 px-3 rounded-md mt-2 w-full text-center">
               {success}
             </div>
           )}

@@ -47,7 +47,7 @@ function LoginPage() {
         <h3 className="text-2xl">เข้าสู่ระบบ</h3>
         <form onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-500 w-fit text-sm text-white py-1 px-3 rounded-md my-4 w-full text-center">
+            <div className="bg-red-500 text-sm text-white py-1 px-3 rounded-md my-4 w-full text-center">
               {error}
             </div>
           )}

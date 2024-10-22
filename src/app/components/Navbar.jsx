@@ -15,11 +15,11 @@ function Navbar({ session }) {
           <ul className="flex">
             {!session ? (
               <>
-                <li className="mx-3">
-                  <Link href="/login">Sign In </Link>
+                <li className="mx-3 hover:bg-[#7598FC] text-white border py-2 px-3 rounded-md text-lg my-2">
+                  <Link href="/login">เข้าสู่ระบบ </Link>
                 </li>
-                <li className="mx-3">
-                  <Link href="/register">Sign Up </Link>
+                <li className="mx-3 bg-[#7598FC] text-white border py-2 px-3 rounded-md text-lg my-2">
+                  <Link href="/register">สมัครสมาชิก </Link>
                 </li>
               </>
             ) : (
@@ -37,7 +37,7 @@ function Navbar({ session }) {
                     onClick={() => signOut()}
                     className="bg-red-500 text-white border py-2 px-3 rounded-md text-lg my-2"
                   >
-                    Logout
+                    ออกจากระบบ
                   </a>
                 </li>
               </>
